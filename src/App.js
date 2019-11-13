@@ -1,14 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {BrowserRouter, Route} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import MainLayout from './components/layout/MainLayout/MainLayout';
 
+import styles from './App.scss';
 import Home from './components/views/Home/Home';
 import Trips from './components/views/Trips/TripsContainer';
 // TODO - import other views
 
+import { AnimatedSwitch } from 'react-router-transition';
 import Trip from './components/views/Trip/TripContainer';
 import Countries from './components/views/Countries/CountriesContainer';
 import Country from './components/views/Country/CountryContainer';
@@ -24,7 +26,7 @@ class App extends React.Component {
   static propTypes = {
     trips: PropTypes.array,
     setStates: PropTypes.func,
-  }
+  };
 
   constructor(props){
     super(props);
@@ -43,20 +45,30 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <MainLayout>
-          <Switch location={location}>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/trips' component={Trips} />
+          <AnimatedSwitch
+            location={location}
+            atEnter={{ opacity: 0, offset: 200 }}
+            atLeave={{ opacity: 0}}
+            atActive={{ opacity: 1, offset: 0 }}
+            className={styles.switchWrapper}
+            mapStyles={styles => ({
+              opacity: styles.opacity,
+              transform: 'translateY(${styles.offset}px)',
+            })}
+          />
+          <Route exact path='/' component={Home} />
+          <Route exact path='/trips' component={Trips} />
 
-            {/* TODO - add more routes for other views */}
-            <Route exact path='/trips/:id' component={Trip} />
-            <Route exact path='/countries' component={Countries} />
-            <Route exact path='/country/:countryCode' component={Country} />
-            <Route exact path='/regions' component={Regions} />
+          {/* TODO - add more routes for other views */}
+          <Route exact path='/trip/:id' component={Trip} />
+          <Route exact path='/countries' component={Countries} />
+          <Route exact path='/country/:id' component={Country} />
+          <Route exact path='/regions' component={Regions} />
 
-            <Route exact path='/info' component={Info} />
-            <Route path='*' component={NotFound} />
-          </Switch>
-        </MainLayout>
+          <Route exact path='/info' component={Info} />
+          <Route path='*' component={NotFound} />
+          
+        </MainLayout>    
       </BrowserRouter>
     );
   }
