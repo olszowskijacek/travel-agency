@@ -16,6 +16,9 @@ import {Grid, Row, Col} from 'react-flexbox-grid';
 
 import OrderForm from '../../features/OrderForm/OrderFormContainer';
 
+import { promoPrice } from '../../../utils/promoPrice';
+import { formatPrice } from '../../../utils/formatPrice';
+
 const Trip = ({error, name, image, cost, days, description, country, intro, id}) => {
   if(error) return <NotFound />;
   else return (
@@ -35,7 +38,15 @@ const Trip = ({error, name, image, cost, days, description, country, intro, id})
               </div>
               <List variant='light'>
                 <ListItem title={`<strong>Duration:</strong> ${days} days`} icon='calendar-alt' />
-                <ListItem title={`<strong>Price:</strong> from ${cost}`} icon='money-bill-wave' />
+                <div>
+                  <div className={styles.promotion}>
+                    <ListItem
+                      title={`<strong>Price from: ${formatPrice(promoPrice(cost, 20))}</strong>`} icon="piggy-bank" />
+                  </div>
+                  <ListItem 
+                    title={`Standard price: ${formatPrice(promoPrice(cost, 0))}`} icon="money-bill-wave" />
+                </div>
+
               </List>
             </Col>
           </Row>

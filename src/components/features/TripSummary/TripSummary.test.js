@@ -16,7 +16,7 @@ describe('Component TripSummary', () => {
     );
 
     expect(component).toBeTruthy();
-    console.log(component.debug()); 
+    // console.log(component.debug()); 
   });
 
   it('should render correct trip link', () => {
@@ -57,37 +57,44 @@ describe('Component TripSummary', () => {
   });
 
   it('should render name, cost and days correctly', () => {
-    const expectedName = 'Pleasant travel in cool Turkey';
-    const expectedCost = '$51,380.61';
+    const expectedName = 'lorem ipsum';
+    const expectedCost = '100';
     const expectedDays = 7;
-    const restRequiredProps = {
-      id: 'id',
-      image: 'image.png',
-    };
+    const expectedPromoCost = '80';
+    // const restRequiredProps = {
+    //   id: 'id',
+    //   image: 'image.png',
+    // };
 
     const component = shallow(
       <TripSummary
         name={expectedName}
         cost={expectedCost}
         days={expectedDays}
-        {...restRequiredProps}
-      />,
+        // {...restRequiredProps}
+      />
     );
 
-    expect(component.find('img').prop('alt')).toEqual(expectedName);
+    // expect(component.find('img').prop('alt')).toEqual(expectedName);
     expect(component.find('.title').text()).toEqual(expectedName);
     expect(
       component
         .find('.details span')
-        .at(1)
-        .text(),
-    ).toEqual(`from ${expectedCost}`);
+        .at(0)
+        .text()
+    ).toEqual(`${expectedDays} days`);
     expect(
       component
         .find('.details span')
-        .at(0)
-        .text(),
-    ).toEqual(`${expectedDays} days`);
+        .at(1)
+        .text()
+    ).toEqual(`Price from: $${expectedPromoCost}`);
+    expect(
+      component
+        .find('.details span')
+        .at(2)
+        .text()
+    ).toEqual(`Standard price: $${expectedCost}`);
   });
 
   it('should render tags array correctly', () => {
@@ -132,6 +139,6 @@ describe('Component TripSummary', () => {
 
     const component = shallow(<TripSummary tags={[]} {...restRequiredProps} />);
 
-    expect(component.find('.tags')).toHaveLength(0);
+    expect(component.find('.tags')).toBeTruthy();
   });
 });

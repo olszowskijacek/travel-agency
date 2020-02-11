@@ -1,4 +1,6 @@
 import { formatTime } from './formatTime';
+import { promoPrice } from './promoPrice';
+import { formatPrice } from './formatPrice';
 
 describe('utils', () => {
   describe('formatTime', () => {
@@ -24,5 +26,20 @@ describe('utils', () => {
       expect(formatTime(3604)).toBe('01:00:04');
     });
 
+  });
+
+  describe('promoPrice', () => {
+    it('should return correct price if arg is proper', () => {
+      expect(promoPrice(50, 20)).toBe(40);
+    });
+  });
+  describe('formatPrice', () => {
+    it('should return correct price format', () => {
+      expect(formatPrice(12345.67)).toBe('$12,346');
+    });
+
+    it('should return unchanged argument which is not a number', () => {
+      expect(formatPrice('string')).toBe('string');
+    });
   });
 });

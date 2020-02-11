@@ -218,6 +218,21 @@
       "start-date": "",
       "totalCost": "$52,781",
       "id": 13
+    },
+    {
+      "car-rental": "",
+      "accommodation": "hotel",
+      "features": [],
+      "adults": 1,
+      "children": 0,
+      "name": "",
+      "contact": "",
+      "start-date": "",
+      "totalCost": "$29,319",
+      "tripName": "Pleasant trek in outstanding Togo",
+      "tripId": "5cc1d10181a30e85c8d9ad4a",
+      "countryCode": "TGO",
+      "id": 14
     }
   ]
 }

@@ -4,6 +4,9 @@ import {Link} from 'react-router-dom';
 import styles from './TripSummary.scss';
 import {Col} from 'react-flexbox-grid';
 
+import { promoPrice } from '../../../utils/promoPrice';
+import { formatPrice } from '../../../utils/formatPrice';
+
 const TripSummary = ({id, image, name, cost, days, tags}) => (
   <Col xs={12} sm={6} lg={4} className={styles.column}>
     <Link to={`/trip/${id}`} className={styles.link}>
@@ -12,7 +15,11 @@ const TripSummary = ({id, image, name, cost, days, tags}) => (
         <h3 className={styles.title}>{name}</h3>
         <div className={styles.details}>
           <span>{days} days</span>
-          <span>from {cost}</span>
+          <span className={styles.promotion}>
+            Price from: {formatPrice(promoPrice(cost, 20))}</span>
+
+          <span>Standard price: {formatPrice(promoPrice(cost, 0))}</span>
+          
         </div>
         {tags && tags.length && (
           <div className={styles.tags}>
@@ -29,12 +36,12 @@ const TripSummary = ({id, image, name, cost, days, tags}) => (
 );
 
 TripSummary.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  image: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  image: PropTypes.string,
+  name: PropTypes.string,
   intro: PropTypes.string,
-  cost: PropTypes.string.isRequired,
-  days: PropTypes.number.isRequired,
+  cost: PropTypes.string,
+  days: PropTypes.number,
   tags: PropTypes.array,
 };
 
